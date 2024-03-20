@@ -1424,6 +1424,14 @@
   dependencies:
     "@unhead/schema" "1.8.20"
 
+"@unhead/ssr@^1.8.20":
+  version "1.8.20"
+  resolved "https://registry.yarnpkg.com/@unhead/ssr/-/ssr-1.8.20.tgz#e447979d4de688203dd9b2f5160ed99158efe3d3"
+  integrity sha512-Cq1NcdYZ/IAkJ0muqdOBxJXb5dn+uV+RvIXDykRb9lGgriU/S0fzUw8XYTYMwLlvW6rSMrtRx319hz2D3ZrBkA==
+  dependencies:
+    "@unhead/schema" "1.8.20"
+    "@unhead/shared" "1.8.20"
+
 "@unhead/vue@^1.8.20":
   version "1.8.20"
   resolved "https://registry.yarnpkg.com/@unhead/vue/-/vue-1.8.20.tgz#fa0f49a8cc29b825a4b4e8c3fa3352b0f516caf0"

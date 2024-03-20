@@ -2,6 +2,11 @@ const path = require("path");
 const express = require("express");
 const { createSSRApp } = require("vue");
 const { renderToString } = require("@vue/server-renderer");
+const { createHead } = require("unhead");
+const { renderSSRHead } = require("@unhead/ssr");
+
+const head = createHead();
+
 const manifest = require("../dist/ssr-manifest.json");
 
 const server = express();
@@ -20,11 +25,50 @@ server.use(
 server.get("*", async (req, res) => {
   const app = createSSRApp(App);
   const appContent = await renderToString(app);
+  head.push({
+    title: "Hello World",
+    meta: [
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "robots", content: "noindex" },
+      { name: "title", content: "Blomb!" },
+      {
+        name: "description",
+        content:
+          "This is just test for meta tags in mode ssr vue js app, can't you see it?",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://vue-serverside.vercel.app" },
+      { property: "og:title", content: "Blomb!" },
+      {
+        property: "og:description",
+        content:
+          "This is just test for meta tags in mode ssr vue js app, can't you see it?",
+      },
+      {
+        property: "og:image",
+        content: "https://metatags.io/images/meta-tags.png",
+      },
+
+      { property: "twitter:url", content: "https://vue-serverside.vercel.app" },
+      { property: "twitter:title", content: "Blomb!" },
+      {
+        property: "twitter:description",
+        content:
+          "This is just test for meta tags in mode ssr vue js app, can't you see it?",
+      },
+      {
+        property: "twitter:image",
+        content: "https://metatags.io/images/meta-tags.png",
+      },
+    ],
+  });
+  const { headTags, htmlAttrs } = await renderSSRHead(head);
 
   const html = `
-      <html>
+      <html ${htmlAttrs}>
         <head>
-          <title>Hello World</title>
+        ${headTags}
           <link rel="stylesheet" href="${manifest["app.css"]}" />
         </head>
         <body>
